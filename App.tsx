@@ -1,13 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React, { useState } from 'react';
 import {
   SafeAreaView,
@@ -27,6 +17,8 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
+import { Abcjs } from 'react-abcjs';
 
 const Section: React.FC<{
   title: string;
@@ -77,6 +69,14 @@ const App = () => {
           {counter}
         </Text>
         <Button onPress={() => setCounter(counter + 1)} title="increment" />
+        <Abcjs
+          abcNotation={
+            'X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:Gccc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|'
+          }
+          parserParams={{}}
+          engraverParams={{ responsive: 'resize' }}
+          renderParams={{ viewportHorizontal: true }}
+        />
       </View>
     </SafeAreaView>
   );

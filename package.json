@@ -10,7 +10,9 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "patch-package": "^6.4.7",
     "react": "17.0.2",
+    "react-abcjs": "^0.1.3",
     "react-native": "0.68.0"
   },
   "devDependencies": {
