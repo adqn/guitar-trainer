@@ -69,14 +69,14 @@ const App = () => {
           {counter}
         </Text>
         <Button onPress={() => setCounter(counter + 1)} title="increment" />
-        <Abcjs
+        {/* <Abcjs
           abcNotation={
             'X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:Gccc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|'
           }
           parserParams={{}}
           engraverParams={{ responsive: 'resize' }}
           renderParams={{ viewportHorizontal: true }}
-        />
+        /> */}
       </View>
     </SafeAreaView>
   );
