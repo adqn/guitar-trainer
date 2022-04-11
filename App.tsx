@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
   SafeAreaView,
   ScrollView,
@@ -19,6 +21,9 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { Abcjs } from 'react-abcjs';
+import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
+
+const Stack = createNativeStackNavigator();
 
 const Section: React.FC<{
   title: string;
@@ -48,7 +53,7 @@ const Section: React.FC<{
   );
 };
 
-const App = () => {
+const Screen1 = ({ navigation }) => { 
   const [counter, setCounter] = useState<number>(0);
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -69,6 +74,13 @@ const App = () => {
           {counter}
         </Text>
         <Button onPress={() => setCounter(counter + 1)} title="increment" />
+        <Button 
+          title="Go to screen 2"
+          onPress={() => {
+            navigation.navigate('Screen2')
+          }}
+        />
+        {/* Need to port this to React Native*/}
         {/* <Abcjs
           abcNotation={
             'X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:Gccc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|'
@@ -79,6 +91,38 @@ const App = () => {
         /> */}
       </View>
     </SafeAreaView>
+  )
+}
+
+const Screen2 = ({ navigation }) => 
+  <SafeAreaView>
+    <Text>
+      This is screen 2
+    </Text>
+      <Button 
+        title="Go to screen 1"
+        onPress={() => {
+          navigation.navigate('Screen1')
+        }}
+      />
+  </SafeAreaView>
+
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Screen1"
+          component={Screen1}
+          options={{ title: 'Screen 1'}}
+        />
+        <Stack.Screen
+          name="Screen2"
+          component={Screen2}
+          options={{ title: 'Screen 2'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
