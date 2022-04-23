@@ -26,6 +26,7 @@ import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 const Stack = createNativeStackNavigator();
 
 import * as scores from "../static/img";
+
 export const RandomScore = ({ navigation }) => {
   const [randomScore, setRandomScore] = useState(Math.floor(Math.random() * Object.values(scores).length))
 
@@ -40,18 +41,22 @@ export const RandomScore = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      <View>
+        <Image 
+          source={Object.values(scores)[randomScore]} 
+          style={{
+            // position: "relative",
+            // left: 0,
+            width: 950,
+          }}
+          />
+      </View>
       <View
         style={{
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
         }}>
-        <Image 
-          source={Object.values(scores)[randomScore]} 
-          style={{
-            width: 950,
-          }}
-          />
         <Button 
           title="Next" 
           onPress={handleNextScore}
