@@ -20,8 +20,9 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { Abcjs } from 'react-abcjs';
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
+
+import { RandomScore } from './Pages/RandomScore';
 
 const Stack = createNativeStackNavigator();
 
@@ -75,9 +76,9 @@ const Screen1 = ({ navigation }) => {
         </Text>
         <Button onPress={() => setCounter(counter + 1)} title="increment" />
         <Button 
-          title="Go to screen 2"
+          title="Practice random scores"
           onPress={() => {
-            navigation.navigate('Screen2')
+            navigation.navigate('RandomScore')
           }}
         />
         {/* Need to port this to React Native*/}
@@ -94,19 +95,6 @@ const Screen1 = ({ navigation }) => {
   )
 }
 
-const Screen2 = ({ navigation }) => 
-  <SafeAreaView>
-    <Text>
-      This is screen 2
-    </Text>
-      <Button 
-        title="Go to screen 1"
-        onPress={() => {
-          navigation.navigate('Screen1')
-        }}
-      />
-  </SafeAreaView>
-
 const App = () => {
   return (
     <NavigationContainer>
@@ -117,9 +105,9 @@ const App = () => {
           options={{ title: 'Screen 1'}}
         />
         <Stack.Screen
-          name="Screen2"
-          component={Screen2}
-          options={{ title: 'Screen 2'}}
+          name="RandomScore"
+          component={RandomScore}
+          options={{ title: 'Practice random scores'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
