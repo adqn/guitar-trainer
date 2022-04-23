@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
@@ -21,6 +21,8 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
+
+import Orientation from 'react-native-orientation';
 
 import { RandomScore } from './Pages/RandomScore';
 
@@ -55,6 +57,7 @@ const Section: React.FC<{
 };
 
 const Screen1 = ({ navigation }) => { 
+  const [didChangeScreen, setDidChangeScreen] = useState(false);
   const [counter, setCounter] = useState<number>(0);
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -62,34 +65,30 @@ const Screen1 = ({ navigation }) => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      Orientation.lockToPortrait();
+    });
+
+    return unsubscribe;
+  }, [navigation])
+
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    <SafeAreaView >
       <View
         style={{
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          paddingTop: 50,
         }}>
-        <Text>
-          {counter}
-        </Text>
-        <Button onPress={() => setCounter(counter + 1)} title="increment" />
         <Button 
           title="Practice random scores"
           onPress={() => {
-            navigation.navigate('RandomScore')
+            navigation.navigate('RandomScore');
+            setDidChangeScreen(!didChangeScreen);
           }}
         />
-        {/* Need to port this to React Native*/}
-        {/* <Abcjs
-          abcNotation={
-            'X:1\nT:Example\nM:4/4\nC:Trad.\nK:G\n|:Gccc dedB|dedB dedB|c2ec B2dB|c2A2 A2BA|'
-          }
-          parserParams={{}}
-          engraverParams={{ responsive: 'resize' }}
-          renderParams={{ viewportHorizontal: true }}
-        /> */}
       </View>
     </SafeAreaView>
   )

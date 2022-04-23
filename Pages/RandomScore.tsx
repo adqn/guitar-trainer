@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {
@@ -23,6 +23,8 @@ import {
 
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 
+import Orientation from 'react-native-orientation';
+
 const Stack = createNativeStackNavigator();
 
 import * as scores from "../static/img";
@@ -38,6 +40,10 @@ export const RandomScore = ({ navigation }) => {
     }
     setRandomScore(nextScore);
   }
+  
+  useEffect(() => {
+    Orientation.lockToLandscapeRight();
+  }, [])
 
   return (
     <SafeAreaView>
