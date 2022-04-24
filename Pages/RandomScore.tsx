@@ -22,23 +22,31 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
-
 import Orientation from 'react-native-orientation';
-
-const Stack = createNativeStackNavigator();
 
 import * as scores from "../static/img";
 
+const Stack = createNativeStackNavigator();
+
+
+const ScoreMenu = () => {
+  return (
+    <View>
+
+    </View>
+  )
+}
+
 export const RandomScore = ({ navigation }) => {
-  const [randomScore, setRandomScore] = useState(Math.floor(Math.random() * Object.values(scores).length))
+  const [currentScore, setCurrentScore] = useState(Math.floor(Math.random() * Object.values(scores).length))
 
   // make async
   const handleNextScore = () => {
     let nextScore = Math.floor(Math.random() * Object.values(scores).length);
-    while (nextScore === randomScore) {
+    while (nextScore === currentScore) {
       nextScore = Math.floor(Math.random() * Object.values(scores).length);
     }
-    setRandomScore(nextScore);
+    setCurrentScore(nextScore);
   }
   
   useEffect(() => {
@@ -49,7 +57,7 @@ export const RandomScore = ({ navigation }) => {
     <SafeAreaView>
       <View>
         <Image 
-          source={Object.values(scores)[randomScore]} 
+          source={Object.values(scores)[currentScore]} 
           style={{
             // position: "relative",
             // left: 0,

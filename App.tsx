@@ -69,7 +69,7 @@ const Screen1 = ({ navigation }) => {
     const unsubscribe = navigation.addListener('focus', () => {
       Orientation.lockToPortrait();
     });
-
+    
     return unsubscribe;
   }, [navigation])
 
@@ -86,7 +86,6 @@ const Screen1 = ({ navigation }) => {
           title="Practice random scores"
           onPress={() => {
             navigation.navigate('RandomScore');
-            setDidChangeScreen(!didChangeScreen);
           }}
         />
       </View>
