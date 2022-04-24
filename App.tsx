@@ -100,7 +100,7 @@ const App = () => {
         <Stack.Screen
           name="Screen1"
           component={Screen1}
-          options={{ title: 'Screen 1'}}
+          options={{ title: 'Guitar Trainer'}}
         />
         <Stack.Screen
           name="RandomScore"
