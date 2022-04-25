@@ -25,6 +25,7 @@ import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import Orientation from 'react-native-orientation';
 
 import * as scores from "../static/img";
+import { score_list } from "../static/img";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,14 +39,26 @@ const ScoreMenu = () => {
 }
 
 export const RandomScore = ({ navigation }) => {
-  const [currentScore, setCurrentScore] = useState(Math.floor(Math.random() * Object.values(scores).length))
+  const [currentScore, setCurrentScore] = useState(Math.floor(Math.random() * score_list.length))
 
   // make async
-  const handleNextScore = () => {
-    let nextScore = Math.floor(Math.random() * Object.values(scores).length);
+  // const handleNextScore = async () => {
+  //   let nextScore = Math.floor(Math.random() * Object.values(scores).length);
+  //   while (nextScore === currentScore) {
+  //     nextScore = await Math.floor(Math.random() * Object.values(scores).length);
+  //     console.log(nextScore)
+  //   }
+  //   console.log("assynccsdas?")
+  //   setCurrentScore(nextScore);
+  // }
+
+  const handleNextScore = async () => {
+    let nextScore = Math.floor(Math.random() * score_list.length);
     while (nextScore === currentScore) {
-      nextScore = Math.floor(Math.random() * Object.values(scores).length);
+      nextScore = await Math.floor(Math.random() * score_list.length);
+      console.log(nextScore)
     }
+    console.log("assynccsdas?")
     setCurrentScore(nextScore);
   }
   
@@ -55,15 +68,35 @@ export const RandomScore = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+      <View
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          top: 20,
+        }}>
+        <Text
+          style={{
+            color: 'black',
+            fontSize: 30,
+            fontStyle: "italic"
+          }}
+        >
+          {score_list[currentScore].name}
+        </Text>
+      </View>
       <View>
         <Image 
-          source={Object.values(scores)[currentScore]} 
+          source={score_list[currentScore].score} 
           style={{
             // position: "relative",
             // left: 0,
-            width: 950,
+            // width: 950,
+            width: undefined,
+            resizeMode: 'contain',
+            height: 150,
           }}
-          />
+        />
       </View>
       <View
         style={{
