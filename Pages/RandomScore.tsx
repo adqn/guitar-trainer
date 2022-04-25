@@ -24,7 +24,6 @@ import {
 import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import Orientation from 'react-native-orientation';
 
-import * as scores from "../static/img";
 import { score_list } from "../static/img";
 
 const Stack = createNativeStackNavigator();

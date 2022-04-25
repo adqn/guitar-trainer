@@ -83,12 +83,30 @@ const Home = ({ navigation }) => {
           alignItems: 'center',
           paddingTop: 50,
         }}>
-        <Button 
-          title="Practice random scores"
-          onPress={() => {
-            navigation.navigate('RandomScore');
+        <View
+          style={{
+            paddingTop: 5
           }}
-        />
+        >
+          <Button 
+            title="Practice scores"
+            onPress={() => {
+              navigation.navigate('RandomScore');
+            }}
+          />
+        </View>
+        <View
+          style={{
+            paddingTop: 5
+          }}
+        >
+          <Button 
+            title="Practice chords"
+            onPress={() => {
+              navigation.navigate('Chords');
+            }}
+          />
+        </View>
       </View>
     </SafeAreaView>
   )
