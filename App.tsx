@@ -25,6 +25,7 @@ import { ScreenStackHeaderBackButtonImage } from 'react-native-screens';
 import Orientation from 'react-native-orientation';
 
 import { RandomScore } from './Pages/RandomScore';
+import { Chords } from './Pages/Chords';
 
 const Stack = createNativeStackNavigator();
 
@@ -56,7 +57,7 @@ const Section: React.FC<{
   );
 };
 
-const Screen1 = ({ navigation }) => { 
+const Home = ({ navigation }) => { 
   const [didChangeScreen, setDidChangeScreen] = useState(false);
   const [counter, setCounter] = useState<number>(0);
   const isDarkMode = useColorScheme() === 'dark';
@@ -98,14 +99,19 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Screen1"
-          component={Screen1}
+          name="Home"
+          component={Home}
           options={{ title: 'Guitar Trainer'}}
         />
         <Stack.Screen
           name="RandomScore"
           component={RandomScore}
           options={{ title: 'Practice random scores'}}
+        />
+        <Stack.Screen
+          name="Chords"
+          component={Chords}
+          options={{ title: 'Practice chords'}}
         />
       </Stack.Navigator>
     </NavigationContainer>
