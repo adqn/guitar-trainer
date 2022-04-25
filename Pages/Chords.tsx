@@ -68,7 +68,12 @@ export const Chords = ({ navigation }) => {
           alignItems: 'center'
         }}
       >
-        <Text>
+        <Text
+          style={{
+            color: 'black',
+            fontSize: 24
+          }}
+        >
           {chordList[currentChord].name}
         </Text>
       </View>
