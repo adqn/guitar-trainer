@@ -24,12 +24,14 @@ export const score_list = [
 
 export const chordList = [
   {
-    name: "C",
+    name: "C Major",
+    symbol: "C",
     notes: CNotes,
     degrees: CDegrees
   },
   {
-    name: "Cm7",
+    name: "C Minor 7",
+    symbol: "Cm7",
     notes: Cm7Notes,
     degrees: Cm7Degrees
   },
