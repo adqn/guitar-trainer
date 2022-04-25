@@ -42,23 +42,11 @@ export const RandomScore = ({ navigation }) => {
   const [currentScore, setCurrentScore] = useState(Math.floor(Math.random() * score_list.length))
 
   // make async
-  // const handleNextScore = async () => {
-  //   let nextScore = Math.floor(Math.random() * Object.values(scores).length);
-  //   while (nextScore === currentScore) {
-  //     nextScore = await Math.floor(Math.random() * Object.values(scores).length);
-  //     console.log(nextScore)
-  //   }
-  //   console.log("assynccsdas?")
-  //   setCurrentScore(nextScore);
-  // }
-
   const handleNextScore = async () => {
     let nextScore = Math.floor(Math.random() * score_list.length);
     while (nextScore === currentScore) {
       nextScore = await Math.floor(Math.random() * score_list.length);
-      console.log(nextScore)
     }
-    console.log("assynccsdas?")
     setCurrentScore(nextScore);
   }
   
@@ -85,7 +73,12 @@ export const RandomScore = ({ navigation }) => {
           {score_list[currentScore].name}
         </Text>
       </View>
-      <View>
+      <View
+        style={{
+          display: "flex",
+          justifyContent: "center"
+        }}
+      >
         <Image 
           source={score_list[currentScore].score} 
           style={{
