@@ -53,10 +53,14 @@ const chooseChord = (inverted: boolean, suspended: boolean) => {
 
 
 export const Chords = ({ navigation }) => {
-  const [currentChord, setCurrentChord] = useState(0);
+  const [currentChord, setCurrentChord] = useState(Math.floor(Math.random() * chordList.length));
 
-  const handleNextChord = () => {
-
+  const handleNextChord = async () => {
+    let nextChord = Math.floor(Math.random() * chordList.length);
+    while (nextChord === currentChord) {
+      nextChord = await Math.floor(Math.random() * chordList.length);
+    }
+    setCurrentChord(nextChord);
   }
 
   return (
@@ -77,14 +81,28 @@ export const Chords = ({ navigation }) => {
           {chordList[currentChord].name}
         </Text>
       </View>
+      <View>
         <Image
-          source={chordList[currentChord].notes}
+          source={chordList[currentChord].degrees}
           style={{
             width: undefined,
             resizeMode: 'contain',
             height: 300,
           }}
         />
+      </View>
+      <View
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 15
+        }}>
+        <Button
+          title="Next"
+          onPress={handleNextChord}
+        />
+      </View>
     </SafeAreaView>
   )
 }

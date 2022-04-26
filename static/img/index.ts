@@ -4,6 +4,8 @@ const lost_woods = require('./lost_woods.png');
 
 const CNotes = require('./chords/C-notes.png');
 const CDegrees = require('./chords/C-degrees.png');
+const CMaj7Notes = require('./chords/Cmaj7-notes.png');
+const CMaj7Degrees = require('./chords/Cmaj7-degrees.png');
 const Cm7Notes = require('./chords/Cm7-notes.png');
 const Cm7Degrees = require('./chords/Cm7-degrees.png');
 
@@ -34,5 +36,11 @@ export const chordList = [
     symbol: "Cm7",
     notes: Cm7Notes,
     degrees: Cm7Degrees
+  },
+  {
+    name: "C Major 7",
+    symbol: "Cmaj7",
+    notes: CMaj7Notes,
+    degrees: CMaj7Degrees
   },
 ]
