@@ -45,22 +45,20 @@ export const AudioPanel = () => {
     const uri = recording?.getURI();
     console.log("Recording stopped and stored at", uri);
     setInfo(`Recording stopped and stored at: ${uri}`);
-    setLastRecordingUri(uri);
+    if (uri) setLastRecordingUri(uri);
     setRecordingEnded(true);
   }
 
   async function playLastRecording() {
     if (lastRecordingUri) {
-      const { sound } = await Audio.Sound.createAsync(
-        require(lastRecordingUri)
-      );
+      const { sound } = await Audio.Sound.createAsync({uri: lastRecordingUri});
       setSound(sound);
       await sound.playAsync();
     } else return;
   }
 
   useEffect(() => {
-  })
+  }, [])
 
   return (
     <View>
