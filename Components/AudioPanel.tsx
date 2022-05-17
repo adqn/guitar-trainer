@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import {
   SafeAreaView,
+  StyleSheet,
   View,
   Text,
   Button,
@@ -13,6 +14,7 @@ export const AudioPanel = () => {
   const [info, setInfo] = useState<string | undefined>(undefined);
   const [recordingEnded, setRecordingEnded] = useState<boolean | undefined>();
   const [lastRecordingUri, setLastRecordingUri] = useState<string | null | undefined>();
+  const [looping, setLooping] = useState<boolean>();
   const playButtonRef = useRef(null);
   const infoRef = useRef(null);
 
@@ -43,19 +45,47 @@ export const AudioPanel = () => {
     setRecording(undefined);
     await recording?.stopAndUnloadAsync();
     const uri = recording?.getURI();
-    console.log("Recording stopped and stored at", uri);
-    setInfo(`Recording stopped and stored at: ${uri}`);
+    console.log("Recording stored at", uri);
+    setInfo(`Recording stored at: ${uri}`);
     if (uri) setLastRecordingUri(uri);
     setRecordingEnded(true);
   }
 
+  async function play(uri: string, loop?: boolean) {
+    try {
+      const { sound } = await Audio.Sound.createAsync({uri: uri});
+      setInfo(`Playing ${uri}`)
+      setSound(sound);
+      await sound.playFromPositionAsync(0);
+    } catch {
+      setInfo(`Unable to play sound`);
+    }
+
+    if (!loop) await sound?.unloadAsync()
+      // .then(() => sound._onPlaybackStatusUpdate);
+    ;
+  }
+
+  // millis: loop duration
+  // 2400ms = 1 measure at 100 BPM
+  async function playLoop(uri: string, millis: number) {
+    const interval = setInterval(() => {
+      if (!looping) {
+        clearInterval(interval);
+      } else {
+        play(uri, true);
+      }
+    }, millis);
+  }
+
   async function playLastRecording() {
     if (lastRecordingUri) {
-      const { sound } = await Audio.Sound.createAsync({uri: lastRecordingUri});
-      setSound(sound);
-      await sound.playAsync();
+      await play(lastRecordingUri);
     } else return;
   }
+
+  // Takes measures in 4/4
+  function recordMeasures(measures: number, bpm: number) {}
 
   useEffect(() => {
   }, [])
@@ -67,13 +97,33 @@ export const AudioPanel = () => {
         onPress={recording ? stopRecording : startRecording}
       />
       {lastRecordingUri ? 
-        <Button 
-          title={"Play"}
-          onPress={playLastRecording}
-        />
-        : null
+      <View style={styles.container}>
+          <Button 
+            title={"Play"}
+            onPress={playLastRecording}
+          />
+          <Button 
+            title={looping ? "Stop loop" : "Loop"}
+            onPress={() => {
+              if (looping) {
+                setLooping(false);
+              } else {
+                setLooping(true);
+                playLoop(lastRecordingUri, 2400);
+              }
+            }}
+          />
+        </View>
+        : undefined
       }
       {info ? <Text>{info}</Text> : undefined}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    display: "flex",
+    flexDirection: "row"
+  }
+})
